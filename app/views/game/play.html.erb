@@ -1,0 +1,10 @@
+<h1>Yo</h1>
+
+<ul>
+  <% @cast.each do |actor| %>
+    <li>
+      <h3><%= actor.character %></h3>
+      <p><%= actor.name %></p>
+    </li>
+  <% end %>
+</ul>
