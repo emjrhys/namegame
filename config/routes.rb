@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-  get 'game/index'
+  resources :movies
 
-  get 'play/:movieid', to: 'game#play', as: 'play'
+  get 'play/:id', to: 'movies#show', as: 'play'
 
-  root 'game#index'
+  root 'movies#index'
 end

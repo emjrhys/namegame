@@ -1,0 +1,47 @@
+h1, h2 {
+  text-align: center;
+}
+
+ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 200px);
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+
+  list-style: none;
+
+  a {
+    text-decoration: none;
+    color: #333;
+  }
+
+  img {
+    width: 100%;
+  }
+}
+
+#namegame {
+  margin: 0 auto;
+  max-width: 1200px;
+
+  text-align: center;
+
+  h1 {
+    margin-bottom: 20px;
+  }
+}
+
+.answers {
+  span {
+    display: inline-block;
+    margin-bottom: 2px;
+    padding: 6px 10px;
+
+    background-color: #d2ddf7;
+    border: 1px solid #b4c8fb;
+    border-radius: 2px;
+
+    font-size: 1.5rem;
+  }
+}
