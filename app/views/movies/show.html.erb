@@ -1,24 +1,35 @@
 <% title @movie.title %>
 
-<%= link_to 'Back', root_path %>
-
 <div id='namegame'>
+  <header>
+    <%= link_to 'Back', root_path %>
+
   <h1>
-    <!-- <%= image_tag 'https://image.tmdb.org/t/p/w300' + @movie.poster_path %> -->
+    <%= image_tag 'https://image.tmdb.org/t/p/w300' + @movie.poster_path %>
     <%= @movie.title %>
   </h1>
+</header>
 
   <ul class='actor-posters'>
     <% @movie.cast.each do |actor| %>
       <li class='actor'>
         <%= image_tag 'https://image.tmdb.org/t/p/w500' + actor.profile_path %>
+        <div class='answer-slot'></div>
       </li>
     <% end %>
   </ul>
 
   <section class='answer-pool'>
     <% @names.each do |e| %>
-      <div class='answer'><%= e[:name] %></div>
+      <div class='answer' data-key=<%= e[:idx] %>>
+        <%= e[:name] %>
+      </div>
     <% end %>
+    <button class='submit hidden'>Submit Answers</button>
+  </section>
+
+  <section class='results hidden'>
+    You scored <span class='score'></span>!
+    <%= link_to 'Play another movie?', play_path(random_movie.id) %>
   </section>
 </div>

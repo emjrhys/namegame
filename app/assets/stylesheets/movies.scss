@@ -1,5 +1,21 @@
-h1, h2 {
+/**************
+GENERAL STYLES
+***************/
+body {
+  background-color: #141414;
+  color: #fff;
+}
+
+h1 {
   text-align: center;
+}
+
+a {
+  color: #fff;
+}
+
+.hidden {
+  display: none;
 }
 
 /**************
@@ -9,13 +25,30 @@ HOME PAGE STYLES
   margin: 30px 0;
   text-align: center;
 
+  a {
+    font-weight: bold;
+  }
+
   form {
     display: inline-block;
   }
 }
 
 #browse-posters {
+  padding: 0 20px;
 
+  h2 {
+    margin-bottom: 8px;
+    font-weight: normal;
+  }
+
+  div {
+    margin-bottom: 30px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
 }
 
 ul.posters {
@@ -31,38 +64,81 @@ GAME STYLES
 ***************/
 #namegame {
   margin: 0 auto;
+  padding: 0 30px 50px;
   max-width: 1200px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 
   text-align: center;
 
+  header {
+    margin-bottom: 30px;
+  }
+
   h1 {
+    display: inline-block;
     margin-bottom: 20px;
+
+    img {
+      width: 50px;
+    }
+
   }
 }
 
 ul.actor-posters {
   display: grid;
-  grid-template-columns: repeat(auto-fit, 240px);
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 1rem;
+
+  margin-bottom: 60px;
 }
 
 .actor {
+  img {
+    vertical-align: bottom;
+  }
+
+  .answer-slot {
+    height: 100px;
+  }
+
   .answer {
+    width: 100%;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+
+  &.correct .answer {
+    background-color: #cbffc1;
+  }
+
+  &.incorrect .answer {
+    background-color: #ffc1c1;
   }
 }
 
 section.answer-pool {
+  margin: 0 auto;
+  max-width: 500px;
+  min-height: 100px;
 
+  .submit {
+    padding: 10px 16px;
+    font-size: 2rem;
+  }
 }
 
 .answer {
   display: inline-block;
-  margin-bottom: 2px;
-  padding: 6px 10px;
+  margin-bottom: 4px;
+  padding: 6px 12px;
 
-  background-color: #d2ddf7;
-  border: 1px solid #b4c8fb;
+  color: #000;
+  background-color: #fff;
+  // border: 1px solid #b4c8fb;
   border-radius: 2px;
 
   font-size: 1.5rem;

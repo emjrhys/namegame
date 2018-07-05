@@ -1,4 +1,4 @@
-<h1>Welcome to the Name Game!</h1>
+<h1>The Name Game</h1>
 
 <section id='play-or-search'>
   <%= link_to 'Play', play_path(random_movie.id) %>
@@ -15,9 +15,16 @@
 </section>
 
 <section id='browse-posters'>
-  <h2>Recently played</h2>
-  <%= render partial: 'posters', locals: { movies: Movie.order('updated_at DESC').all } %>
-
-  <h2>Most played</h2>
-  <%= render partial: 'posters', locals: { movies: Movie.order('playcount DESC').all } %>
-</section
+  <div>
+    <h2>Most played</h2>
+    <%= render partial: 'posters', locals: { movies: Movie.order('playcount DESC').all } %>
+  </div>
+  <div>
+    <h2>Recently played</h2>
+    <%= render partial: 'posters', locals: { movies: Movie.order('updated_at DESC').all } %>
+  </div>
+  <div>
+    <h2>Recently added</h2>
+    <%= render partial: 'posters', locals: { movies: Movie.order('created_at DESC').all } %>
+  </div>
+</section>
