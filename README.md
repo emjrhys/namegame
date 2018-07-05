@@ -18,6 +18,7 @@ Simple rails game created for 3Play Media coding challenge
 
 ### bonus
 - scoreboard
+- win streak
 - play from 'playlist'
 
 ### completed
