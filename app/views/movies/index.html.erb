@@ -4,17 +4,18 @@
   <%= link_to 'Play', play_path(random_movie.id) %>
   <span>or</span>
   <%= form_with url: '/', method: :get, local: true do |form| %>
-    <%= form.text_field :search, placeholder: 'Search for a movie', value: @searchParam %>
-
+    <%= form.text_field :search, placeholder: 'Search for a movie', value: @searchParam, autocomplete: 'off' %>
     <%= form.submit 'Search' %>
-  <% end %>
-
-  <% if @search %>
-    <%= render partial: 'posters', locals: { movies: @search } %>
   <% end %>
 </section>
 
 <section id='browse-posters'>
+  <% if @search %>
+    <div>
+      <h2>Search Results</h2>
+      <%= render partial: 'posters', locals: { movies: @search } %>
+    </div>
+  <% end %>
   <div>
     <h2>Most played</h2>
     <%= render partial: 'posters', locals: { movies: Movie.order('playcount DESC').all } %>

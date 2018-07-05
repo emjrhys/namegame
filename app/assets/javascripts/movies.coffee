@@ -3,6 +3,7 @@ $(document).on 'turbolinks:load', ->
 
   # allow names to be dragged
   $('.answer').draggable
+    cursor: 'grabbing'
     revert: true
     revertDuration: 0
 

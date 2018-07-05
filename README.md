@@ -4,9 +4,8 @@ Simple rails game created for 3Play Media coding challenge
 
 ## TODO
 ### game
-- score submission
-- next random movie
-- different game modes
+- randomize actor pictures
+- click & click as well as click & drag
 
 ### home
 - game mode select?
@@ -20,7 +19,10 @@ Simple rails game created for 3Play Media coding challenge
 - scoreboard
 - win streak
 - play from 'playlist'
+- different game modes
 
 ### completed
+- ~~next random movie~~
+- ~~score submission~~
 - ~~random button~~
 - ~~drop names on actors~~

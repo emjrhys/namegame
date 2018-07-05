@@ -54,9 +54,7 @@ HOME PAGE STYLES
 ul.posters {
   display: grid;
   grid-template-columns: repeat(auto-fit, 200px);
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  // justify-content: f
 }
 
 /**************
@@ -118,6 +116,13 @@ ul.actor-posters {
   &.incorrect .answer {
     background-color: #ffc1c1;
   }
+
+  @for $i from 1 through 5 {
+    &:nth-child(#{$i}) .answer {
+      -webkit-transition-delay: .5s * ($i - 1);
+              transition-delay: .5s * ($i - 1);
+    }
+  }
 }
 
 section.answer-pool {
@@ -128,6 +133,8 @@ section.answer-pool {
   .submit {
     padding: 10px 16px;
     font-size: 2rem;
+
+    cursor: pointer;
   }
 }
 
@@ -138,8 +145,43 @@ section.answer-pool {
 
   color: #000;
   background-color: #fff;
-  // border: 1px solid #b4c8fb;
   border-radius: 2px;
 
   font-size: 1.5rem;
+
+  -webkit-transition: background-color .1s;
+  transition: background-color .1s;
+
+  cursor: -webkit-grab;
+  cursor: grab;
+}
+
+.results {
+  -webkit-transition: opacity .2s;
+  transition: opacity .2s;
+  -webkit-transition-delay: 3s;
+          transition-delay: 3s;
+
+  opacity: 1;
+
+  p {
+    margin-bottom: 20px;
+    font-size: 2rem;
+  }
+
+  a {
+    padding: 4px 12px;
+
+    color: #000;
+    background-color: #ccc;
+
+    &:hover {
+      background-color: #fff;
+    }
+  }
+
+  &.hidden {
+    display: block;
+    opacity: 0;
+  }
 }
