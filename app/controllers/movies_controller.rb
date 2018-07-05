@@ -3,7 +3,7 @@ class MoviesController < ApplicationController
   def index
     @searchParam = params[:search]
 
-    if (@searchParam)
+    if @searchParam
       @search = Tmdb::Search.movie(@searchParam).results.select{|e| !e.poster_path.nil?}
     end
   end
@@ -54,14 +54,25 @@ class MoviesController < ApplicationController
     end
 
     # generate names for game
-    def generate_names
+    # 3 gamemodes:
+    #   0 - actor names only
+    #   1 - character names only
+    #   2 - a mix of both actor and character names
+    def generate_names (gamemode = 0)
       names = []
 
+      # add names to list according to mode
       @movie.cast.each_with_index do |actor, i|
-        names.push({ name: actor.name, idx: i }) #.push({ name: actor.character, idx: i })
+        if gamemode != 1
+          names.push({ name: actor.name, idx: i })
+        end
+
+        if gamemode != 0
+          names.push({ name: actor.character, idx: i })
+        end
       end
 
-      p names
-      names.shuffle #[0..6]
+      # randomize order and return up to 7 names
+      names.shuffle[0..6]
     end
 end

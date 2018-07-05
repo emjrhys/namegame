@@ -1,3 +1,5 @@
+<% title @movie.title %>
+
 <%= link_to 'Back', root_path %>
 
 <div id='namegame'>
@@ -6,19 +8,17 @@
     <%= @movie.title %>
   </h1>
 
-  <ul class='actors'>
+  <ul class='actor-posters'>
     <% @movie.cast.each do |actor| %>
-      <li>
+      <li class='actor'>
         <%= image_tag 'https://image.tmdb.org/t/p/w500' + actor.profile_path %>
-        <!-- <h3><%= actor.character %></h3> -->
-        <!-- <p><%= actor.name %></p> -->
       </li>
     <% end %>
   </ul>
 
-  <section class='answers'>
+  <section class='answer-pool'>
     <% @names.each do |e| %>
-      <span><%= e[:name] %></span>
+      <div class='answer'><%= e[:name] %></div>
     <% end %>
   </section>
 </div>

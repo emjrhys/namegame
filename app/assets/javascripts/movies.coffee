@@ -1,3 +1,9 @@
 $(document).on 'turbolinks:load', ->
-  $('#namegame .answers span').draggable { revert: false }
-  $('#namegame .actors li').droppable 
+  $('#namegame .answer').draggable
+    revert: true
+    revertDuration: 0
+    
+  $('#namegame .actor').droppable
+    drop: (event, ui) ->
+      $('.answer-pool').append($(this).find('.answer'))
+      $(this).append(ui.draggable)

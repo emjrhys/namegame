@@ -1,16 +1,23 @@
 <h1>Welcome to the Name Game!</h1>
-<%= form_with url: '/', method: :get, local: true do |form| %>
-  <%= form.text_field :search, placeholder: 'Find a movie', value: @searchParam %>
 
-  <%= form.submit 'Search' %>
-<% end %>
+<section id='play-or-search'>
+  <%= link_to 'Play', play_path(random_movie.id) %>
+  <span>or</span>
+  <%= form_with url: '/', method: :get, local: true do |form| %>
+    <%= form.text_field :search, placeholder: 'Search for a movie', value: @searchParam %>
 
-<% if @search %>
-  <%= render partial: 'posters', locals: { movies: @search } %>
-<% end %>
+    <%= form.submit 'Search' %>
+  <% end %>
 
-<h2>Recently added movies</h2>
-<%= render partial: 'posters', locals: { movies: Movie.order('updated_at DESC').all } %>
+  <% if @search %>
+    <%= render partial: 'posters', locals: { movies: @search } %>
+  <% end %>
+</section>
 
-<h2>Most played movies</h2>
-<%= render partial: 'posters', locals: { movies: Movie.order('playcount DESC').all } %>
+<section id='browse-posters'>
+  <h2>Recently played</h2>
+  <%= render partial: 'posters', locals: { movies: Movie.order('updated_at DESC').all } %>
+
+  <h2>Most played</h2>
+  <%= render partial: 'posters', locals: { movies: Movie.order('playcount DESC').all } %>
+</section
