@@ -2,7 +2,7 @@
   <% movies[0..6].each do |movie| %>
     <li>
       <%= link_to play_path(movie.id) do %>
-        <%= image_tag 'https://image.tmdb.org/t/p/w500' + movie.poster_path, draggable: false %>
+        <%= image_tag poster_url(movie.poster_path), draggable: false %>
         <!-- <%= link_to 'Delete', movie_path(movie),
               method: :delete,
               data: { confirm: 'Are you sure?' } %> -->

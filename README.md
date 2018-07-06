@@ -4,7 +4,6 @@ Simple rails game created for 3Play Media coding challenge
 
 ## TODO
 ### game
-- randomize actor pictures
 - click & click as well as click & drag
 
 ### home
@@ -22,6 +21,7 @@ Simple rails game created for 3Play Media coding challenge
 - different game modes
 
 ### completed
+- ~~randomize actor pictures~~
 - ~~next random movie~~
 - ~~score submission~~
 - ~~random button~~

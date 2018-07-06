@@ -9,6 +9,7 @@ $(document).on 'turbolinks:load', ->
 
   # handle name dropped on actor
   $('.actor').droppable
+    hoverClass: 'drop-hover'
     drop: (event, ui) ->
       # if actor already has a name, swap it with the dropped one
       ui.draggable.parent().append($(this).find('.answer'))
@@ -20,19 +21,22 @@ $(document).on 'turbolinks:load', ->
       else
         $('.submit').addClass('hidden')
 
-  # allow names to be dropped back into the pool
+  # allow names to be dropped back into the pool and hide submit
   $('.answer-pool').droppable
     drop: (event, ui) ->
       $('.answer-pool').append(ui.draggable)
+      $('.submit').addClass('hidden')
 
   $('.submit').on 'click', ->
     $('.answer').draggable( 'disable' )
     score = 0
 
     # check answers and tally score
-    $('.actor').each (idx) ->
-      key = parseInt($(this).find('.answer').attr('data-key'))
-      if (key == idx)
+    $('.actor').each ->
+      actorKey = parseInt($(this).attr('data-key'))
+      nameKey = parseInt($(this).find('.answer').attr('data-key'))
+
+      if (actorKey == nameKey)
         score += 1
         $(this).addClass('correct')
       else

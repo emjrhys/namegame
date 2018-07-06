@@ -1,35 +1,35 @@
 <% title @movie.title %>
 
-<div id='namegame'>
-  <header>
-    <%= link_to 'Back', root_path %>
+<header>
+  <%= link_to '', root_path, class: 'back' %>
+  <%= link_to movie_url(@movie.id), target: '_blank', class: 'movie-page' do %>
+    <%= image_tag poster_url(@movie.poster_path) %>
+  <% end %>
 
-  <h1>
-    <%= image_tag 'https://image.tmdb.org/t/p/w300' + @movie.poster_path %>
-    <%= @movie.title %>
-  </h1>
+  <h1><%= @movie.title %></h1>
 </header>
 
+<div id='game'>
   <ul class='actor-posters'>
-    <% @movie.cast.each do |actor| %>
-      <li class='actor'>
-        <%= image_tag 'https://image.tmdb.org/t/p/w500' + actor.profile_path, draggable: false %>
+    <% @movie.cast.shuffle.each do |actor| %>
+      <li class='actor' data-key=<%= actor.order %>>
+        <%= image_tag poster_url(actor.profile_path), draggable: false %>
         <div class='answer-slot'></div>
       </li>
     <% end %>
   </ul>
 
   <section class='answer-pool'>
-    <% @names.each do |e| %>
-      <div class='answer' data-key=<%= e[:idx] %>>
-        <%= e[:name] %>
+    <% @movie.cast.shuffle.each do |actor| %>
+      <div class='answer' data-key=<%= actor.order %>>
+        <%= actor.name %>
       </div>
     <% end %>
     <button class='submit hidden'>Submit Answers</button>
   </section>
 
   <section class='results hidden'>
-    <p>You scored <span class='score'></span>!</p>
+    <p>You got <span class='score'></span> correct!</p>
     <%= link_to 'Try again', url_for %>
     <%= link_to 'Try another', play_path(random_movie.id) %>
     <!-- <%= link_to 'Return to home', root_path %> -->
