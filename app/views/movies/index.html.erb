@@ -1,6 +1,7 @@
 <h1>The Name Game</h1>
 
 <section id='play-or-search'>
+  <%= link_to 'Play', play_path(random_movie.id) %>
   <span>or</span>
   <%= form_with url: '/', method: :get, local: true do |form| %>
     <%= form.text_field :search, placeholder: 'Search for a movie', value: @searchParam, autocomplete: 'off' %>
