@@ -15,8 +15,6 @@
  *= require jquery-ui
  */
 
-@import 'mixins';
-
 html {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
