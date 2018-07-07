@@ -1,6 +1,7 @@
 # Name Game
 
 Simple rails game created for 3Play Media coding challenge
+You can play the game [here](https://name-game-3play.herokuapp.com/)
 
 ## TODO
 ### game
