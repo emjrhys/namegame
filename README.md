@@ -5,6 +5,7 @@ Simple rails game created for 3Play Media coding challenge
 ## TODO
 ### game
 - click & click as well as click & drag
+- prevent same game back to back
 
 ### home
 
