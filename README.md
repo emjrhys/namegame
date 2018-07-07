@@ -7,7 +7,6 @@ Simple rails game created for 3Play Media coding challenge
 - click & click as well as click & drag
 
 ### home
-- game mode select?
 
 ### general
 - style all pages
@@ -18,7 +17,7 @@ Simple rails game created for 3Play Media coding challenge
 - scoreboard
 - win streak
 - play from 'playlist'
-- different game modes
+- different game modes?
 
 ### completed
 - ~~randomize actor pictures~~
