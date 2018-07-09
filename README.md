@@ -14,12 +14,13 @@ You can play the game [here](https://name-game-3play.herokuapp.com/)
 - account for non-standard poster sizes
 - animations
 
-### bugs
-- fix heroku image errors
-
 ### general
 - keep adding movies to database
 - variable poster quality
+- better url
+
+### bugs
+- fix heroku image errors
 
 ### bonus
 - scoreboard
