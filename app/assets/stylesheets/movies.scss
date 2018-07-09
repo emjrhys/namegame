@@ -68,6 +68,18 @@ MIXINS
   }
 }
 
+@mixin breakpoint($point) {
+   @if $point == large {
+     @media (min-width: 64em) { @content ; }
+  }
+    @else if $point == medium {
+     @media (max-width: 64em) { @content ; }
+  }
+   @else if $point == small {
+     @media (max-width: 40em)  { @content ; }
+  }
+}
+
 /**************
 GENERAL STYLES
 ***************/
@@ -276,6 +288,22 @@ form.search {
 ul.posters {
   display: grid;
   grid-template-columns: repeat(9, 1fr);
+
+  @include breakpoint('medium') {
+    grid-template-columns: repeat(6, 1fr);
+
+    li:nth-child(n+7) {
+      display: none;
+    }
+  }
+
+  @include breakpoint('small') {
+    grid-template-columns: repeat(3, 1fr);
+
+    li:nth-child(n+4) {
+      display: none;
+    }
+  }
 }
 
 /**************

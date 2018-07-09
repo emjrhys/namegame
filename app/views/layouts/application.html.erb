@@ -4,6 +4,7 @@
     <title> The Name Game <%= content_for?(:title) ? (' | ' + yield(:title)) : '' %> </title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <meta name='viewport' content='width=device-width, user-scalable=no' />
 
     <link href='https://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet'>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
