@@ -20,6 +20,10 @@ html {
           box-sizing: border-box;
 }
 
+body {
+  overflow-x: hidden;
+}
+
 *, *:before, *:after {
   -webkit-box-sizing: inherit;
           box-sizing: inherit;
