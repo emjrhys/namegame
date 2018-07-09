@@ -1,5 +1,6 @@
 $(document).on 'turbolinks:load', ->
   total = $('.answer-pool .answer').length
+  averageScore = $('#average').val()
 
   # allow names to be dragged
   $('.answer').draggable
@@ -44,10 +45,21 @@ $(document).on 'turbolinks:load', ->
 
       setTimeout updateScore, 500 * idx, score
 
-    if (score >= 5)
+    # set score color if you beat the average
+    if ((averageScore == '' || score >= averageScore) && score > 0)
       $('.results .score').addClass('great-score')
-    else if (score <= 1)
+    else
       $('.results .score').addClass('bad-score')
+
+    $.ajax({
+      type: 'PATCH'
+      dataType: 'script'
+      url: '/movies/' + $('#movieid').val()
+      contentType: 'application/json'
+      data: JSON.stringify({
+        score: score
+      })
+    })
 
     $('.answer-pool').addClass('hidden')
     $('.results').removeClass('hidden')

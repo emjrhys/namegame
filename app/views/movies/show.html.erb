@@ -7,10 +7,14 @@
   <% end %>
 
   <h1><%= @movie.title %></h1>
-  <%= link_to 'Skip Movie', play_path(random_movie.id), class: 'skip-movie' %>
+  <%= link_to play_path(random_movie.id), class: 'skip-movie' do %>
+    <span>Skip Movie</span>
+  <% end %>
 </header>
 
 <div id='game'>
+  <%= hidden_field_tag 'movieid', @movie.id, { id: 'movieid' } %>
+  <%= hidden_field_tag 'average', @movie.average, { id: 'average' } %>
   <ul class='actor-posters'>
     <% @movie.cast.shuffle.each do |actor| %>
       <li class='actor' data-key=<%= actor.order %>>
@@ -42,3 +46,9 @@
     </nav>
   </section>
 </div>
+<section id='browse-posters'>
+  <div>
+    <h2>More movies</h2>
+    <%= render partial: 'posters', locals: { movies: Movie.order('RANDOM()').all } %>
+  </div>
+</section>

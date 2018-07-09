@@ -19,11 +19,25 @@ class MoviesController < ApplicationController
       @movie = Movie.find(params[:id])
     else
       p 'doesn\'t exists'
-      @movie = create_movie
+      @movie = Movie.create_from_tmdb params[:id]
     end
+  end
 
-    # update play count
-    @movie.update(playcount: @movie.playcount + 1)
+  # calculate new average when movie is played
+  def update
+    score = params[:score]
+    movie = Movie.find(params[:id])
+    average = movie.average
+    playcount = movie.playcount
+
+    # if this is the first time, no need to calculate average
+    # (also reset playcount to clear old data)
+    if average.nil?
+      movie.update(playcount: 1, average: score)
+    else
+      average = ((average * playcount) + score) / (playcount + 1.0)
+      movie.update(playcount: playcount + 1, average: average)
+    end
   end
 
   # delete movies (not in use)
@@ -35,27 +49,6 @@ class MoviesController < ApplicationController
   end
 
   private
-    # load movie from api and save to database
-    def create_movie
-      # make moviedb api calls
-      search = Tmdb::Movie.detail(params[:id])
-      # get first five cast members with profile picture
-      cast = Tmdb::Movie.cast(params[:id]).select{|e| !e.profile_path.nil?}[0..4]
-      p cast
-      # create a new movie object
-      new_movie = Movie.new(
-        id: params[:id],
-        title: search.title,
-        poster_path: search.poster_path,
-        cast: cast,
-        playcount: 0
-      )
-
-      # save movie to database and return
-      new_movie.save
-      new_movie
-    end
-
     # generate random posters for the home screen
     def generate_marquee_posters count
       movies = Movie.all.shuffle[0..(count/2 - 1)]
