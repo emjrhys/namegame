@@ -1,12 +1,35 @@
-<h1>The Name Game</h1>
+<section id='play'>
+  <div class='play--inner'>
+    <%= link_to 'Play', play_path(random_movie.id) %>
+    <%= form_with url: '/', method: :get, local: true, class: 'search' do |form| %>
+      <%= form.text_field :search, placeholder: 'Search for a movie', value: @searchParam, autocomplete: 'off' %>
+      <%= form.submit ' ' %>
+    <% end %>
+  </div>
 
-<section id='play-or-search'>
-  <%= link_to 'Play', play_path(random_movie.id) %>
-  <span>or</span>
-  <%= form_with url: '/', method: :get, local: true do |form| %>
-    <%= form.text_field :search, placeholder: 'Search for a movie', value: @searchParam, autocomplete: 'off' %>
-    <%= form.submit 'Search' %>
-  <% end %>
+  <div class='marquee--wrapper'>
+    <div id='marquee'>
+      <div class='marquee--inner'>
+        <% (0..1).each do %>
+          <ul>
+            <% @marqueeTop.each do |poster_path| %>
+              <li><%= image_tag poster_url(poster_path), draggable: false %></li>
+            <% end %>
+          </ul>
+        <% end %>
+      </div>
+      <div class='marquee--inner reverse'>
+        <% (0..1).each do %>
+          <ul>
+            <% @marqueeBottom.each do |poster_path| %>
+              <li><%= image_tag poster_url(poster_path), draggable: false %></li>
+            <% end %>
+          </ul>
+        <% end %>
+      </div>
+    </div>
+    <div class='marquee--overlay'></div>
+  </div>
 </section>
 
 <section id='browse-posters'>
@@ -17,12 +40,12 @@
     </div>
   <% end %>
   <div>
-    <h2>Most played</h2>
-    <%= render partial: 'posters', locals: { movies: Movie.order('playcount DESC').all } %>
-  </div>
-  <div>
     <h2>Recently played</h2>
     <%= render partial: 'posters', locals: { movies: Movie.order('updated_at DESC').all } %>
+  </div>
+  <div>
+    <h2>Most played</h2>
+    <%= render partial: 'posters', locals: { movies: Movie.order('playcount DESC').all } %>
   </div>
   <div>
     <h2>Recently added</h2>

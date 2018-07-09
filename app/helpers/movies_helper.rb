@@ -1,6 +1,12 @@
 module MoviesHelper
   def random_movie
-    Movie.order("RANDOM()").limit(1)[0]
+    random = Movie.order("RANDOM()").limit(1)[0]
+
+    while @movie && random.id == @movie.id
+      random = Movie.order("RANDOM()").limit(1)[0]
+    end
+
+    random
   end
 
   def poster_url poster_path

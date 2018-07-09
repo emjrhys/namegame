@@ -1,5 +1,5 @@
 <ul class='posters'>
-  <% movies[0..6].each do |movie| %>
+  <% movies[0..8].each do |movie| %>
     <li>
       <%= link_to play_path(movie.id) do %>
         <%= image_tag poster_url(movie.poster_path), draggable: false %>

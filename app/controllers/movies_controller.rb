@@ -6,6 +6,9 @@ class MoviesController < ApplicationController
     if @searchParam
       @search = Tmdb::Search.movie(@searchParam).results.select{|e| !e.poster_path.nil?}
     end
+
+    @marqueeTop = generate_marquee_posters 20
+    @marqueeBottom = generate_marquee_posters 20
   end
 
   # load movie by id and play the game
@@ -51,5 +54,14 @@ class MoviesController < ApplicationController
       # save movie to database and return
       new_movie.save
       new_movie
+    end
+
+    # generate random posters for the home screen
+    def generate_marquee_posters count
+      movies = Movie.all.shuffle[0..(count/2 - 1)]
+      actor_posters = movies.map { |m| m.cast.shuffle[0].profile_path }
+      movie_posters = movies.map { |m| m.poster_path }
+
+      (movie_posters + actor_posters).shuffle
     end
 end

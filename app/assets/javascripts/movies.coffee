@@ -32,16 +32,26 @@ $(document).on 'turbolinks:load', ->
     score = 0
 
     # check answers and tally score
-    $('.actor').each ->
-      actorKey = parseInt($(this).attr('data-key'))
-      nameKey = parseInt($(this).find('.answer').attr('data-key'))
+    $('.actor').each (idx, elem) ->
+      actorKey = parseInt($(elem).attr('data-key'))
+      nameKey = parseInt($(elem).find('.answer').attr('data-key'))
 
       if (actorKey == nameKey)
         score += 1
-        $(this).addClass('correct')
+        $(elem).addClass('correct')
       else
-        $(this).addClass('incorrect')
+        $(elem).addClass('incorrect')
+
+      setTimeout updateScore, 500 * idx, score
+
+    if (score >= 5)
+      $('.results .score').addClass('great-score')
+    else if (score <= 1)
+      $('.results .score').addClass('bad-score')
 
     $('.answer-pool').addClass('hidden')
-    $('.results .score').html(score + '/' + total)
     $('.results').removeClass('hidden')
+
+  updateScore = (score) ->
+    console.log(score)
+    $('.results .score').html(score + '/' + total)

@@ -4,16 +4,22 @@ Simple rails game created for 3Play Media coding challenge
 You can play the game [here](https://name-game-3play.herokuapp.com/)
 
 ## TODO
-### game
+### functional
+- admin page to delete/edit movies
 - click & click as well as click & drag
-- prevent same game back to back
+- suggested movies on game page
 
-### home
+### style
+- breakpoints
+- account for non-standard poster sizes
+- animations
+
+### bugs
+- fix heroku image errors
 
 ### general
-- style all pages
-- animations
-- get hosting set up
+- keep adding movies to database
+- variable poster quality
 
 ### bonus
 - scoreboard
@@ -22,8 +28,4 @@ You can play the game [here](https://name-game-3play.herokuapp.com/)
 - different game modes?
 
 ### completed
-- ~~randomize actor pictures~~
-- ~~next random movie~~
-- ~~score submission~~
-- ~~random button~~
-- ~~drop names on actors~~
+- ~~prevent same game back to back~~

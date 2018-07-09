@@ -1,9 +1,79 @@
 /**************
+VARIABLES
+***************/
+$background-color: #141414;
+$white: #fff;
+$off-white: #ddd;
+$black: #000;
+$correct-color: #cbffc1;
+$incorrect-color: #ffc1c1;
+
+$score-text-delay: 2.5s;
+$next-game-delay: 3.5s;
+
+$marquee-speed: 90s;
+$marquee-visible-posters: 9;
+$marquee-poster-width: 100vw / $marquee-visible-posters;
+
+/**************
+MIXINS
+***************/
+@mixin link-with-icon($icon-path, $size, $top, $offset) {
+  content: '';
+  position: absolute;
+  display: inline-block;
+  width: $size;
+  height: $size;
+  top: $top;
+
+  background: url($icon-path) no-repeat center center;
+  background-size: contain;
+}
+
+@mixin link-with-icon-left($icon-path, $size, $top, $offset) {
+  position: relative;
+  padding-left: $offset;
+
+  -webkit-transition: -webkit-transform .2s;
+  transition: transform .2s, -webkit-transform .2s;
+
+  &::before {
+    @include link-with-icon($icon-path, $size, $top, $offset);
+    left: 0;
+  }
+
+  &:hover {
+    text-decoration: underline;
+    -webkit-transform: scale(1.05);
+            transform: scale(1.05);
+  }
+}
+
+@mixin link-with-icon-right($icon-path, $size, $top, $offset) {
+  position: relative;
+  padding-right: $offset;
+
+  -webkit-transition: -webkit-transform .2s;
+  transition: transform .2s, -webkit-transform .2s;
+
+  &::after {
+    @include link-with-icon($icon-path, $size, $top, $offset);
+    right: 0;
+  }
+
+  &:hover {
+    text-decoration: underline;
+    -webkit-transform: scale(1.05);
+            transform: scale(1.05);
+  }
+}
+
+/**************
 GENERAL STYLES
 ***************/
 body {
-  background-color: #141414;
-  color: #fff;
+  background-color: $background-color;
+  color: $white;
 }
 
 h1 {
@@ -11,7 +81,7 @@ h1 {
 }
 
 a {
-  color: #fff;
+  color: $white;
 }
 
 .hidden {
@@ -21,48 +91,181 @@ a {
 /**************
 HOME PAGE STYLES
 ***************/
-#play-or-search {
-  margin: 30px 0;
+#play {
+  width: 100vw;
+  height: 30vw;
+  min-height: 240px;
 
-  font-size: 1.5rem;
-  text-align: center;
+  overflow-x: hidden;
+
+  .play--inner {
+    height: 100%;
+
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
 
   a {
+    margin-bottom: 12px;
+
     font-weight: bold;
+    font-size: 5rem;
+
+    @include link-with-icon-right('play.png', 56px, 25px, 75px);
+  }
+}
+
+form.search {
+  display: inline-block;
+
+  input {
+    font-size: 1.5rem;
+    height: 30px;
+  }
+
+  input[type='submit'] {
+    position: relative;
+    top: 4px;
+    width: 30px;
+
+    background: url('search.png') no-repeat center center;
+    background-size: 20px auto;
+    border: none;
+
+    cursor: pointer;
+
+    -webkit-transition: -webkit-transform .1s;
+    transition: transform .1s, -webkit-transform .1s;
 
     &:hover {
-      text-decoration: underline;
+      -webkit-transform: scale(1.1);
+              transform: scale(1.1);
     }
   }
 
-  form {
-    display: inline-block;
+  input[type='text'] {
+    padding-bottom: 5px;
+    color: $white;
 
-    input {
-      font-size: 1.5rem;
+    background: none;
+    border: none;
+    border-bottom: 2px solid $white;
+    outline: none;
+
+    &:focus {
+
     }
 
-    input[type='text'] {
-      color: #fff;
+    &::-webkit-input-placeholder {
+      color: $off-white;
+    }
 
-      background: none;
-      border: none;
-      border-bottom: 2px solid #fff;
-      outline: none;
+    &:-ms-input-placeholder {
+      color: $off-white;
+    }
+
+    &::-ms-input-placeholder {
+      color: $off-white;
+    }
+
+    &::placeholder {
+      color: $off-white;
     }
   }
 }
 
+#marquee {
+  width: $marquee-poster-width * 20;
+  min-width: 1800px;
+
+  .marquee--inner {
+    position: relative;
+    width: 200%;
+    -webkit-animation: marquee $marquee-speed linear infinite;
+            animation: marquee $marquee-speed linear infinite;
+
+    &.reverse {
+      -webkit-animation: marquee-reverse $marquee-speed linear infinite;
+              animation: marquee-reverse $marquee-speed linear infinite;
+    }
+  }
+
+  ul {
+    display: grid;
+    grid-template-columns: repeat(20, minmax(90px, $marquee-poster-width));
+    grid-row-gap: 0;
+
+    float: left;
+    width: 50%;
+  }
+
+  li {
+    display: inline-block;
+  }
+}
+
+.marquee--wrapper {
+  position: absolute;
+  top: 0;
+  width: 100vw;
+  min-width: 800px;
+  height: $marquee-poster-width * 3;
+  min-height: 270px;
+
+  overflow: hidden;
+  z-index: -1;
+}
+
+.marquee--overlay {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba($background-color, .8)), to(rgba($background-color, 1)));
+  background: linear-gradient(rgba($background-color, .8), rgba($background-color, 1));
+}
+
+@-webkit-keyframes marquee {
+  0% { left: 0; }
+  100% { left: -100%; }
+}
+
+@keyframes marquee {
+  0% { left: 0; }
+  100% { left: -100%; }
+}
+
+@-webkit-keyframes marquee-reverse {
+  0% { left: -100%; }
+  100% { left: 0; }
+}
+
+@keyframes marquee-reverse {
+  0% { left: -100%; }
+  100% { left: 0; }
+}
+
 #browse-posters {
-  padding: 0 20px;
+  padding: 0 20px 40px;
 
   h2 {
     margin-bottom: 8px;
+    font-size: 1.4rem;
     font-weight: normal;
   }
 
   div {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 
     &:last-child {
       margin-bottom: 0;
@@ -72,8 +275,7 @@ HOME PAGE STYLES
 
 ul.posters {
   display: grid;
-  grid-template-columns: repeat(auto-fit, 200px);
-  // justify-content: f
+  grid-template-columns: repeat(9, 1fr);
 }
 
 /**************
@@ -88,7 +290,7 @@ header {
           align-items: center;
 
   margin-bottom: 40px;
-  padding: 10px 20px;
+  padding: 10px 25px;
 
   .back {
     display: inline-block;
@@ -117,6 +319,15 @@ header {
 
   h1 {
     display: inline-block;
+    text-align: left;
+  }
+
+  .skip-movie {
+    margin-left: auto;
+    margin-right: 15px;
+    font-size: 1.25rem;
+
+    @include link-with-icon-right('skip.png', 16px, 5px, 25px);
   }
 }
 
@@ -161,23 +372,43 @@ ul.actor-posters {
     font-size: 1.2rem;
   }
 
-  &.correct .answer {
-    background-color: #cbffc1;
-  }
-
-  &.incorrect .answer {
-    background-color: #ffc1c1;
-  }
-
   &.drop-hover {
     -webkit-transform: scale(1.05);
             transform: scale(1.05);
   }
 
+  &.correct, &.incorrect {
+    -webkit-transition: -webkit-transform .2s;
+    transition: transform .2s, -webkit-transform .2s;
+
+    -webkit-transform: scale(1.05);
+            transform: scale(1.05);
+  }
+
+  &.correct {
+    -webkit-transform: scale(1.05);
+            transform: scale(1.05);
+
+    .answer {
+      background-color: $correct-color;
+    }
+  }
+
+  &.incorrect {
+    -webkit-transform: scale(.95);
+            transform: scale(.95);
+
+    .answer {
+      background-color: $incorrect-color;
+    }
+  }
+
   @for $i from 1 through 5 {
-    &:nth-child(#{$i}) .answer {
-      -webkit-transition-delay: .5s * ($i - 1);
-              transition-delay: .5s * ($i - 1);
+    &:nth-child(#{$i}) {
+      &.correct, &.incorrect, .answer {
+        -webkit-transition-delay: .5s * ($i - 1);
+                transition-delay: .5s * ($i - 1);
+      }
     }
   }
 }
@@ -187,10 +418,17 @@ section.answer-pool {
   max-width: 600px;
 
   .submit {
-    padding: 10px 16px;
+    color: $white;
     font-size: 2rem;
+    font-weight: bold;
+
+    background: none;
+    border: none;
+    outline: none;
 
     cursor: pointer;
+
+    @include link-with-icon-left('check.png', 34px, 0, 45px);
   }
 }
 
@@ -199,8 +437,8 @@ section.answer-pool {
   margin-bottom: 4px;
   padding: 6px 12px;
 
-  color: #000;
-  background-color: #fff;
+  color: $black;
+  background-color: $white;
   border-radius: 2px;
 
   font-size: 1.5rem;
@@ -214,32 +452,70 @@ section.answer-pool {
   z-index: 100;
 }
 
-.results {
-  -webkit-transition: opacity .2s;
-  transition: opacity .2s;
-  -webkit-transition-delay: 3s;
-          transition-delay: 3s;
+section.results {
+  span, nav {
+    -webkit-transition: opacity .3s;
+    transition: opacity .3s;
 
-  opacity: 1;
-
-  p {
-    margin-bottom: 20px;
-    font-size: 2rem;
+    opacity: 1;
   }
 
-  a {
-    padding: 4px 12px;
+  p {
+    margin-bottom: 40px;
 
-    color: #000;
-    background-color: #ccc;
+    font-size: 3rem;
+    font-weight: bold;
+  }
 
-    &:hover {
-      background-color: #fff;
+  .score {
+    position: relative;
+    top: 10px;
+
+    font-size: 4.5rem;
+
+    -webkit-transition: opacity .3s, color .3s $score-text-delay;
+    transition: opacity .3s, color .3s $score-text-delay;
+
+    &.great-score {
+      color: $correct-color;
     }
+
+    &.bad-score {
+      color: $incorrect-color;
+    }
+  }
+
+  .score-text {
+    -webkit-transition-delay: $score-text-delay;
+            transition-delay: $score-text-delay;
+  }
+
+  nav {
+    -webkit-transition-delay: $next-game-delay;
+            transition-delay: $next-game-delay;
   }
 
   &.hidden {
     display: block;
-    opacity: 0;
+    pointer-events: none;
+
+    span, nav {
+      opacity: 0;
+    }
   }
+}
+
+a.retry, a.another {
+  display: inline-block;
+  font-size: 2rem;
+}
+
+a.retry {
+  margin-right: 150px;
+
+  @include link-with-icon-left('retry.png', 26px, 8px, 34px);
+}
+
+a.another {
+  @include link-with-icon-right('skip.png', 26px, 8px, 34px);
 }

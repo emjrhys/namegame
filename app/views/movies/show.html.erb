@@ -7,6 +7,7 @@
   <% end %>
 
   <h1><%= @movie.title %></h1>
+  <%= link_to 'Skip Movie', play_path(random_movie.id), class: 'skip-movie' %>
 </header>
 
 <div id='game'>
@@ -25,13 +26,19 @@
         <%= actor.name %>
       </div>
     <% end %>
-    <button class='submit hidden'>Submit Answers</button>
+    <button class='submit hidden'>Submit</button>
   </section>
 
   <section class='results hidden'>
-    <p>You got <span class='score'></span> correct!</p>
-    <%= link_to 'Try again', url_for %>
-    <%= link_to 'Try another', play_path(random_movie.id) %>
-    <!-- <%= link_to 'Return to home', root_path %> -->
+    <p>
+      <span class='score-text'>You got </span>
+      <span class='score'>0/5</span>
+      <span class='score-text'> correct!</span>
+    </p>
+
+    <nav>
+      <%= link_to 'Try again', url_for, class: 'retry' %>
+      <%= link_to 'Try another', play_path(random_movie.id), class: 'another' %>
+    </nav>
   </section>
 </div>
